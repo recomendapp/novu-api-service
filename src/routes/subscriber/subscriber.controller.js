@@ -1,4 +1,5 @@
 import AppExpress from "@itznotabug/appexpress";
+import { createSubscriber, deleteSubscriber, updateSubscriber } from "./subscriber.service";
 
 const router = new AppExpress.Router();
 
@@ -15,7 +16,7 @@ router.get("/", async (req, res) => {
  *  requestBody:
  *   required: true
  */
-router.post("/", async (req, res, next) => {
+router.post("/", async (req, res) => {
   try {
     const payload = req.bodyJson;
     console.log(`Payload: ${JSON.stringify(payload)}`);
@@ -34,7 +35,7 @@ router.post("/", async (req, res, next) => {
     }
     res.send("Subscriber created");
   } catch (error) {
-    next(error);
+    res.status(500).send(error.message);
   }
 });
 
