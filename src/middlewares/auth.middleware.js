@@ -1,4 +1,4 @@
-const authMiddleware = async (req, _, log, error) => {
+const authMiddleware = async (req, res, log, error) => {
 	try {
 		const { authorization } = req.headers;
 		
@@ -8,6 +8,10 @@ const authMiddleware = async (req, _, log, error) => {
 		}
 	} catch (err) {
 		error(err);
+		return res.json({
+			status: 401,
+			message: 'Unauthorized'
+		});
 	}
 }
 
