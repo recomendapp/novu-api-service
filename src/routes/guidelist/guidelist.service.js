@@ -27,13 +27,13 @@ export const sendGuidelist = async ({ record }) => {
 
 	console.log(`Movie: ${JSON.stringify(movie)}`);
 
-	await guidelistSendWorkflow.trigger({
-		to: record.user_id,
-		payload: {
-			sender: data.sender.username,
-			movie: movie.title
-		}
-	})
+	// await guidelistSendWorkflow.trigger({
+	// 	to: record.user_id,
+	// 	payload: {
+	// 		sender: data.sender.username,
+	// 		movie: movie.title
+	// 	}
+	// })
 };
 
 export const completeGuidelist = async ({ record, old_record}) => {
@@ -63,12 +63,12 @@ export const completeGuidelist = async ({ record, old_record}) => {
 		throw new Error(errMovie.message);
 	}
 
-	await guidelistCompletedWorkflow.trigger({
-		to: record.user_id,
-		payload: {
-			receiver: data.receiver.username,
-			movie: movie.title
-		}
-	})
+	// await guidelistCompletedWorkflow.trigger({
+	// 	to: record.user_id,
+	// 	payload: {
+	// 		receiver: data.receiver.username,
+	// 		movie: movie.title
+	// 	}
+	// })
 };
 
