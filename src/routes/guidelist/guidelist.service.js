@@ -12,6 +12,8 @@ export const sendGuidelist = async ({ record }) => {
 		throw new Error(errSender.message);
 	}
 
+	console.log(`Sender: ${JSON.stringify(data)}`);
+
 	const { data: movie, error: errMovie } = await supabase
 	.from('movie')
 	.select('title')
@@ -22,6 +24,8 @@ export const sendGuidelist = async ({ record }) => {
 	if (errMovie) {
 		throw new Error(errMovie.message);
 	}
+
+	console.log(`Movie: ${JSON.stringify(movie)}`);
 
 	await guidelistSendWorkflow.trigger({
 		to: record.user_id,
