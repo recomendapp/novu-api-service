@@ -47,7 +47,7 @@ router.post("/sync", async (req, res, log, error) => {
   try {
     const { data: users, error: err } = await supabase
       .from('user')
-      .select('*, id(email, phone)');
+      .select('*, users(email, phone)');
 
     if (err) {
       throw new Error(err.message);
