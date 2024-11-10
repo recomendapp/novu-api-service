@@ -11,10 +11,7 @@ router.get("/", async (req, res) => {
  * @swagger
  * /subscriber:
  *   post:
- *    summary: Create a new subscriber
- *   description: Create a new subscriber
- *  requestBody:
- *   required: true
+ *    summary: Create, update or delete a subscriber
  */
 router.post("/", async (req, res, next) => {
   try {
@@ -38,5 +35,33 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
+
+/**
+ * @swagger
+ * /subscriber/sync:
+ *  post:
+ *   summary: Sync all subscribers
+ */
+router.post("/sync", async (req, res, next) => {
+  try {
+    const { data: users, error } = await supabase
+      .from('user')
+      .select('*, id(email, phone)');
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    console.log(`Users: ${JSON.stringify(users)}`);
+    res.send("Synced all subscribers");
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 export default router;
