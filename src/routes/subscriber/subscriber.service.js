@@ -38,7 +38,7 @@ export const updateSubscriber = async (payload) => {
 			phone: record.phone
 		});
 	} else if (schemaTable === 'public.user') {
-		const response = await novu.subscribers.update(subscriberId, {
+		await novu.subscribers.update(subscriberId, {
 			avatar: record.avatar_url,
 			data: {
 				username: record.username,
@@ -46,7 +46,6 @@ export const updateSubscriber = async (payload) => {
 			},
 			locale: record.language,
 		});
-		console.log(`Response: ${JSON.stringify(response)}`);
 	} else {
 		throw new Error('Invalid table');
 	}
