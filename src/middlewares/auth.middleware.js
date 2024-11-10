@@ -6,8 +6,8 @@ const authMiddleware = async (req, _, log, error) => {
 		if (authorization !== process.env.AUTH_TOKEN) {
 			throw new Error('Unauthorized');
 		}
-	} catch (error) {
-		error(error);
+	} catch (err) {
+		error(err);
 	}
 }
 
