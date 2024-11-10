@@ -1,6 +1,7 @@
 import AppExpress from "@itznotabug/appexpress";
 import { createSubscriber, deleteSubscriber, updateSubscriber } from "./subscriber.service.js";
 import supabase from "../../lib/supabase.js";
+import novu from "../../lib/novu.js";
 
 const router = new AppExpress.Router();
 
@@ -47,13 +48,22 @@ router.post("/sync", async (req, res, log, error) => {
   try {
     const { data: users, error: err } = await supabase
       .from('user')
-      .select('*, users(email, phone)');
+      .select('*');
 
     if (err) {
       throw new Error(err.message);
     }
 
-    log(`Users: ${JSON.stringify(users)}`);
+    await novu.subscribers.bulkCreate(users.map(user => ({
+      subscriberId: user.id,
+      avatar: user.avatar_url,
+      data: {
+        username: user.username,
+        full_name: user.full_name
+      },
+      locale: user.language
+    })));
+
     res.send("Synced all subscribers");
   } catch (err) {
     error(err);
