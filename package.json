@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@itznotabug/appexpress": "^1.6.4",
+    "@novu/node": "^2.0.1",
     "node-appwrite": "^12.0.1"
   },
   "devDependencies": {

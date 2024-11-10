@@ -8,7 +8,6 @@ const app = new AppExpress();
 // Routes
 app.use('/subscriber', subscriber)
 
-
 // Default route
 const getRoutes = (req, res) => {
 	res.json({
