@@ -1,5 +1,5 @@
 import AppExpress from "@itznotabug/appexpress";
-import { createSubscriber, deleteSubscriber, updateSubscriber } from "./subscriber.service";
+import { createSubscriber, deleteSubscriber, updateSubscriber } from "./subscriber.service.js";
 
 const router = new AppExpress.Router();
 
