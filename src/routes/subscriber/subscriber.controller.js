@@ -13,10 +13,10 @@ router.get("/", async (req, res) => {
  *   post:
  *    summary: Create, update or delete a subscriber
  */
-router.post("/", async (req, res, next) => {
+router.post("/", async (req, res, log, error) => {
   try {
     const payload = req.bodyJson;
-    console.log(`Payload: ${JSON.stringify(payload)}`);
+    log(`Payload: ${JSON.stringify(payload)}`);
     switch (payload.type) {
       case "INSERT":
         await createSubscriber(payload);
@@ -31,8 +31,8 @@ router.post("/", async (req, res, next) => {
         throw new Error("Invalid type");
     }
     res.send("Subscriber created");
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    error(err);
   }
 });
 
@@ -42,24 +42,20 @@ router.post("/", async (req, res, next) => {
  *  post:
  *   summary: Sync all subscribers
  */
-router.post("/sync", async (req, res, next) => {
+router.post("/sync", async (req, res, log, error) => {
   try {
-    const { data: users, error } = await supabase
+    const { data: users, error: err } = await supabase
       .from('user')
       .select('*, id(email, phone)');
 
-    if (error) {
-      throw new Error(error.message);
+    if (err) {
+      throw new Error(err.message);
     }
 
-    if (error) {
-      throw new Error(error.message);
-    }
-
-    console.log(`Users: ${JSON.stringify(users)}`);
+    log(`Users: ${JSON.stringify(users)}`);
     res.send("Synced all subscribers");
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    error(err);
   }
 });
 
