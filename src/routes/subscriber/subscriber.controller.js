@@ -17,6 +17,8 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res, next) => {
   try {
+    // Show NOVU API KEY FROM ENV
+    console.log(process.env.NOVU_API_KEY);
     res.send("Subscriber created");
   } catch (error) {
     next(error);
