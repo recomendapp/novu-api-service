@@ -1,6 +1,6 @@
 import AppExpress from "@itznotabug/appexpress";
 import { createSubscriber, deleteSubscriber, updateSubscriber } from "./subscriber.service.js";
-import { supabase } from "../../lib/supabase.js";
+import supabase from "../../lib/supabase.js";
 import novu from "../../lib/novu.js";
 
 const router = new AppExpress.Router();

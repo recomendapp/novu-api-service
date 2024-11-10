@@ -10,7 +10,7 @@ const app = new AppExpress();
 // Middleware
 app.middleware(authMiddleware);
 // Routes
-app.use('/subscriber', subscriber)
+app.use('/subscriber', subscriber);
 app.use('/guidelist', guidelist);
 
 // Default route
@@ -19,7 +19,6 @@ const getRoutes = (req, res) => {
 		routes: [
 			'/',
 			'/subscriber',
-			'/subscriber/sync',
 			'/guidelist'
 		]
 	});

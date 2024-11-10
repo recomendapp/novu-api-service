@@ -1,5 +1,5 @@
 import AppExpress from "@itznotabug/appexpress";
-import { completeGuidelist, sendGuidelist } from "./guidelist.service.js";
+// import { completeGuidelist, sendGuidelist } from "./guidelist.service.js";
 
 const router = new AppExpress.Router();
 
