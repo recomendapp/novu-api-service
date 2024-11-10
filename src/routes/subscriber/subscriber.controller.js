@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
  *  requestBody:
  *   required: true
  */
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
   try {
     const payload = req.bodyJson;
     console.log(`Payload: ${JSON.stringify(payload)}`);
@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
     }
     res.send("Subscriber created");
   } catch (error) {
-    res.status(500).send(error.message);
+    next(error);
   }
 });
 
