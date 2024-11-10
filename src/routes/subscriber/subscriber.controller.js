@@ -1,6 +1,6 @@
 import AppExpress from "@itznotabug/appexpress";
 import { createSubscriber, deleteSubscriber, updateSubscriber } from "./subscriber.service.js";
-import supabase from "../../lib/supabase.js";
+import { supabase } from "../../lib/supabase.js";
 import novu from "../../lib/novu.js";
 
 const router = new AppExpress.Router();
@@ -35,6 +35,10 @@ router.post("/", async (req, res, log, error) => {
     res.send("Subscriber created");
   } catch (err) {
     error(err);
+    return res.json({
+      status: 400,
+      message: err.message,
+    });
   }
 });
 
@@ -67,6 +71,10 @@ router.post("/sync", async (req, res, log, error) => {
     res.send("Synced all subscribers");
   } catch (err) {
     error(err);
+    return res.json({
+      status: 400,
+      message: err.message,
+    });
   }
 });
 
