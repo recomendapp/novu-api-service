@@ -1,4 +1,4 @@
-import novu from '../../lib/novu.js';
+import { novu } from '../../lib/novu.js';
 
 export const createSubscriber = async (payload) => {
 	const { schema, table, record } = payload;

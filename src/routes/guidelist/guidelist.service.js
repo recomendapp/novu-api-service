@@ -1,32 +1,31 @@
 // import { guidelistCompletedWorkflow, guidelistSendWorkflow } from './guidelist.workflow.js';
-import supabase from '../../lib/supabase.js';
+import { supabase } from '../../lib/supabase.js';
 
 export const sendGuidelist = async (payload) => {
-	console.log(`Payload received: ${JSON.stringify(payload)}`);
-	// const { data, error: errSender } = await supabase
-	// 	.from('user_movie_guidelist')
-	// 	.select('receiver:user_id(language),sender:sender_id(username)')
-	// 	.eq('id', payload.record.id)
-	// 	.single();
+	const { data, error: errSender } = await supabase
+		.from('user_movie_guidelist')
+		.select('receiver:user_id(language),sender:sender_id(username)')
+		.eq('id', payload.record.id)
+		.single();
 
-	// if (errSender) {
-	// 	throw new Error(errSender.message);
-	// }
+	if (errSender) {
+		throw new Error(errSender.message);
+	}
 
-	// console.log(`Sender: ${JSON.stringify(data)}`);
+	console.log(`Sender: ${JSON.stringify(data)}`);
 
-	// const { data: movie, error: errMovie } = await supabase
-	// .from('movie')
-	// .select('title')
-	// .eq('id', payload.record.movie_id)
-	// .setHeader('language', data.receiver.language)
-	// .single();
+	const { data: movie, error: errMovie } = await supabase
+	.from('movie')
+	.select('title')
+	.eq('id', payload.record.movie_id)
+	.setHeader('language', data.receiver.language)
+	.single();
 
-	// if (errMovie) {
-	// 	throw new Error(errMovie.message);
-	// }
+	if (errMovie) {
+		throw new Error(errMovie.message);
+	}
 
-	// console.log(`Movie: ${JSON.stringify(movie)}`);
+	console.log(`Movie: ${JSON.stringify(movie)}`);
 
 	// await guidelistSendWorkflow.trigger({
 	// 	to: record.user_id,
