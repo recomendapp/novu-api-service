@@ -1,10 +1,11 @@
-import { guidelistCompletedWorkflow, guidelistSendWorkflow } from './guidelist.workflow.js';
+// import { guidelistCompletedWorkflow, guidelistSendWorkflow } from './guidelist.workflow.js';
+import { novu } from '../../lib/novu.js';
 import { supabase } from '../../lib/supabase.js';
 
 export const sendGuidelist = async (payload) => {
 	const { data, error: errSender } = await supabase
 		.from('user_movie_guidelist')
-		.select('receiver:user_id(language),sender:sender_id(username)')
+		.select('receiver:user_id(*),sender:sender_id(*)')
 		.eq('id', payload.record.id)
 		.single();
 
@@ -26,6 +27,17 @@ export const sendGuidelist = async (payload) => {
 	}
 
 	console.log(`Movie: ${JSON.stringify(movie)}`);
+
+	await novu.trigger('guidelist_send', {
+		to: payload.record.user_id,
+		payload: {
+			message: `@${data.sender.username} recomended you ${movie.title}`
+		},
+		actor: {
+			subscriberId: data.sender.id,
+			avatar: data.sender.avatar_url,
+		}
+	})
 
 	// await guidelistSendWorkflow.trigger({
 	// 	to: record.user_id,
