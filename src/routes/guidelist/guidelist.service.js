@@ -1,4 +1,4 @@
-// import { guidelistCompletedWorkflow, guidelistSendWorkflow } from './guidelist.workflow.js';
+import { guidelistCompletedWorkflow, guidelistSendWorkflow } from './guidelist.workflow.js';
 import { supabase } from '../../lib/supabase.js';
 
 export const sendGuidelist = async (payload) => {

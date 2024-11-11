@@ -3,8 +3,7 @@ import { z } from 'zod';
 
 export const guidelistSendWorkflow = workflow('guidelist_send', async ({ payload, step }) => {
 	const inAppResponse = await step.inApp('notify', () => ({
-		body: `@${payload.sender} recomended you ${payload.movie}`,
-		redirect: '/collection/guidelist',
+		body: `@${payload.sender} recomended you ${payload.movie}`
 	}));
 }, {
 	payloadSchema: z.object({
